@@ -1,0 +1,606 @@
+--- Here are many useful VIM tips. ----
+This file uses folding mode in VIM.
+To open the folds *zR* or *zo* .
+To close folds *zM* or *zc* .
+-------------------
+Simple copy delete commands
+<<<
+*y*       copy/yank the current selection into copy/paste buffer
+*Y* or *yy*  copy/yank the current line into copy/paste buffer
+*p*       insert/push the copy/paste buffer after cursor
+*P*       insert/push the copy/paste buffer before cursor
+*daw*     delete word under cursor
+*caw*     change word under cursor
+*diw*     delete word under cursor, excluding spaces
+*ciw*     change word under cursor, excluding spaces
+ dw       delete word after cursor
+ cw       change word after cursor
+>>> 
+-------------------
+Simple movement commands
+<<<
+*w*       move word forward
+ <S-Right>  -"-
+*W*       move blank separated word forward
+ <C-Right>  -"-
+*b*       move word backwards
+ <S-Left>   -"-
+*B*       move blank separated word forward
+ <C-Left>   -"-
+>>> 
+-------------------
+Move to char
+<<<
+*f{char}* move forward to first occurance of {char}
+*F{char}* move backward to first occurance of {char}
+*;*       repeat latest f/F/t/T command
+*,*       repeat latest f/F/t/T command in opposite direction
+>>> 
+-------------------
+Movement within code/blocks
+<<<
+To jump to the beginning of a C code block (while, switch, if etc), use the
+*[{* command.
+To jump to the end of a C code block (while, switch, if etc), use the *]}* command.
+
+The above two commands will work from anywhere inside the code block.
+
+To jump to the beginning of a parenthesis use the *[(* command.
+
+To jump to the end of a parenthesis use the *])* command.
+>>>
+-------------------
+Visual select text.
+<<<
+
+Use mouse to select a region of text. *Mouse-1* drag to visual select.
+Alternative *Mouse-1* then *Mouse-3* .
+
+Double click *Mouse-1*  - select word
+Tripple click *Mouse-1* - select line
+Quad click *Mouse-1*    - rectangular select, same as *CTRL-V*
+
+
+*v{motion}* select a region with *v* then any motion commands or arrow keys      
+*V*         same as *v* but always selects complete lines
+
+Rectangular select by selecting as above then press *CTRL-V*
+
+Some typical command sequences
+*v{motion}y* yank the selected text
+*v{motion}p* replace selected text with put buffer
+*v{motion}c* delete selected text and enter insert mode
+*v{motion}!* execute external command on selected text
+
+*viw*       visual select the word under cursor
+*gv*        reselect previously selected block
+
+ Visual select text then *y* to yank. You'll end up with the cursor at the
+ start of the selection. To get back to the cursor position before yank:
+
+*']*      To the last character of the previously changed or yanked text. 
+>>> 
+-------------------
+Delete word backwards when in insert mode.
+<<<
+*CTRL-W*  delete word before cursor
+>>> 
+-------------------
+Indentation in normal mode:
+<<<
+*<<*      Shift text indentation to the left. Current line.
+*>>*      Shift text indentation to the right.
+*<*       Same with visually selected block of text.
+*>*       -"-
+*==*      Indent line according to file type and context.
+
+Indentation in insert mode
+*CTRL-F* Indent line according to file type and context.
+*CTRL-T* Shift text indentation to the right.
+*CTRL-D* Shift text indentation to the left.
+
+>>> 
+-------------------
+The present working directory can be displayed in Vim with:
+<<< >
+ :pwd
+>>> 
+-------------------
+To change to the directory of the currently opened file:
+<<< >
+ :cd %:h
+>>> 
+-------------------
+set current dir to dir of current buffer (like emacs) 
+<<< >
+ :set autochdir
+or >
+ :autocmd BufEnter * lcd %:p:h
+>>> 
+-------------------
+change buffer
+<<< >
+ :b part-of-buff-name<TAB>
+>>> 
+-------------------
+change to last buffer
+<<<
+*CTRL-6*
+>>> 
+-------------------
+Copy a word and paste it over other words:
+<<<
+
+*yiw*    yank inner word (copy word under cursor, say "first").
+...	 Move the cursor to another word (say "second").
+*viwp*   select "second", then replace it with "first".
+...	 Move the cursor to another word (say "third").
+ viw"0p  select "third", then replace it with "first".
+>>> 
+-------------------
+Copy a word and paste it over other words alternate method:
+<<<
+*yiw*        yank inner word (copy word under cursor, say "first". Same as above).
+...	     Move the cursor to another word (say "second").
+*ciw<C-r>0*  select "second", then replace it with "first" If you are at the start of the word then cw<C-r>0 is sufficient.
+...	     Move the cursor to another word (say "third").
+*.*          select "third", then replace it with "first".
+>>> 
+-------------------
+jump to previously visited locations
+<<<
+*CTRL-O*        previous location (like browser back button)
+*CTRL-I* /*TAB* next location (like browser forward button)
+list previous locations >
+ :jumps
+>>> 
+-------------------
+comment region
+<<<
+
+select start of lines region with
+*CTRL-V*
+then
+*I* comment-chars <ESC>
+>>> 
+-------------------
+rectangular select mode
+<<<
+
+select rectangular region with
+*CTRL-V*
+then
+*I* text to be inserted <ESC>
+*A* text to be appended to line <ESC>
+*c* text to replace with <ESC>
+*y* yank region
+*!* filter region through external command
+*>* shift region right
+*<* shift region left
+
+You can select rectangular region with mouse using *Mouse-1* to select region then press *CTRL-V*
+
+>>> 
+-------------------
+Expand/complete word
+<<<
+*CTRL-N* expand partial word based on all words in all buffers, only in insert mode
+ When in completion menu typing any non-special character will exit completion
+ mode and insert that character. Some special characters in completion menu:
+*CTRL-Y* select current completion and exit menu.
+*CTRL-E* exit completion menu without inserting any completion.
+*CTRL-N* cycle through completion menu entries.
+>>> 
+-------------------
+<<<
+Command line editing (e.g. on : cmd line and / cmd line).
+*CTRL-R* "              Insert text from register " (which is the yank buffer)
+*CTRL-R* *CTRL-W*       Insert word under cursor into command line.
+*CTRL-R* *              Insert clipboard/visual selection into command line.
+>>> 
+-------------------
+Open file under cursor >
+<<<
+*gf*                    Goto file, open file under cursor in current buffer.
+*CTRL-W* *f*            -"- in a new window
+*CTRL-W* *gf*            -"- in a new tab
+ visual select *gf*     Opens the selected filename (works with spaces in
+                        filename)
+>>> 
+-------------------
+fill paragraph
+<<<
+
+visual-select then fill
+*gq*
+
+fill current line
+*gqq*
+
+fill current para
+*gqap*
+
+fill curr para, keep cursor pos
+*gwap*
+>>> 
+-------------------
+line numbers
+<<<
+
+line number mode >
+ :set number
+ :set nonumber
+
+list in minibuffer >
+ :nu count
+>>> 
+---------------
+search
+<<<
+*/pattern*              search forward for the pattern
+*?pattern*              search backward for the pattern
+*n*                     repeat last search forward
+*N*                     repeat last search backward
+*/\cpattern*            search forward case-insensitive 
+>>> 
+---------------
+search for current word (requires no selection)
+<<<
+ *  or *<S-LeftMouse>*  search forward for the word at the cursor
+*#* or *<S-LeftMouse>*  search backward for the word at the cursor
+>>> 
+---------------
+incremental search >
+<<<
+ :se is
+ :se nois
+>>> 
+---------------
+search and replace (whole file with confirmation) >
+<<<
+ :%s/kalle/olle/cg
+>>> 
+-----------------
+<<<
+*^Wc*  close this window
+*^Ws*  split window horisontally
+*^Wv*  split window vertically 
+>>> 
+-----------------
+ Split window and open file in new window  >
+<<<
+   :split file.c
+>>> 
+-----------------
+ Split window vertically and open file in new window 
+<<< >
+   :vs file.c
+>>> 
+-----------------
+ Tab commands >
+<<<
+  :tabnew file    opens a new tab with file
+  :tabclose       close current tab
+  :tabonly        close all other tabs
+  :tabdo {cmd}    execute {cmd} in each tab
+*gt*
+*<C-PageDown>*    goto next tab
+*gT*
+*<C-PageUp>*      goto previous tab >
+>>> 
+-----------------
+<<<
+ >
+  :bd[elete]  deletes current buffer
+>>> 
+-----------------
+recording macro (to register "q")
+<<<
+*qq* ...
+*q*
+using macro
+*@q*
+*@@* repeat last macro
+*12@q*
+>>> 
+-----------------
+goto line number n
+<<<
+*nG*
+>>> 
+-----------------
+set explicitly file type for syntax coloring >
+<<<
+  :set filetype=vhdl
+>>> 
+-----------------
+set vi options when loading file (-- can be any comment char )
+<<<
+-- vim: set filetype=vhdl : 
+>>> 
+-----------------
+set mark, jump to mark
+<<<
+ *m{a-zA-Z}*
+*`{a-zA-Z}*     position at exact line position
+*'{a-zA-Z}*     position at marked line
+>>> 
+-----------------
+delete all lines matching pattern
+<<<
+*:g/foo/d*    delete all lines matching 'foo'
+*:g!/foo/d*    delete all lines not matching 'foo'
+>>>
+----------------
+yank all lines matching pattern
+<<<
+ :g/foo/y A    yank all lines matching 'foo', appends to register so need clear
+>>>
+----------------
+insert a file into buffer >
+<<<
+  :r file.txt
+>>> 
+----------------
+insert output from command into buffer
+<<< >
+  :r !pwd
+>>> 
+---------------
+increment/decrement
+<<<
+*CTRL-A* - increment number
+*CTRL-X* - decrement number
+>>> 
+---------------
+to diff directories, get module DirDiff.vim and put into .vim/plugin
+<<< >
+
+  :DirDiff directory1 directory2
+>>> 
+---------------
+sorting lines >
+<<<
+  :%sort   - sort all lines in buffer
+  :%sort u  - sort all lines and only keep unique lines
+>>> 
+---------------
+lower case word
+<<<
+*guw*    - lower case word
+*gUw*    - upper case word
+>>> 
+---------------
+Folding commands
+<<<
+
+Visually select a region then
+*zf*     - fold region, create fold
+*zd*     - delete fold
+*zc*     - close fold (but not remove)
+*zo*     - open fold
+
+The commands *zc* (close), *zo* (open), and *za* (toggle) operate on one level of
+folding, at the cursor. The commands *zC* , *zO* and *zA* are similar, but operate on
+all folding levels (for example, the cursor line may be in an open fold, which
+is inside another open fold; typing *zC* would close all folds at the cursor).
+
+The command *zr* reduces folding by opening one more level of folds throughout
+the whole buffer (the cursor position is not relevant). Use *zR* to open all
+folds.
+
+The command *zm* gives more folding by closing one more level of folds
+throughout the whole buffer. Use *zM* to close all folds.
+
+To restrict searches to non-folded regions set the following option: >
+ :set fdo-=search
+
+To set fold markers in a file insert {{{ and }}} in comments and set
+the following options: >
+
+ :set foldmethod=marker 
+
+>>> 
+---------------
+Sessions
+<<< >
+  :mksession! mysession.vim
+  gvim -S mysession.vim
+get module obviously-insert.vim and put into .vim/plugin directory
+>>> 
+---------------
+Associating syntax modes with file extensions.
+<<<
+create a file ~/.vim/ftdetect/myfiletype.vim with content: >
+  au BufRead,BufNewFile *.psl             setfiletype vhdl
+>>> 
+---------------
+SystemVerilog mode
+<<<
+Get systemverilog.vim and put in ~/.vim/syntax directory
+>>> 
+---------------
+Saving backup files in numbered files.
+<<<
+Get writebackup.vim and put into .vim/plugin. >
+  :W      - will write a backup version of file with date and revision name
+>>> 
+---------------
+Auto updating timestamps (e.g. Last Changed:)
+<<<
+Get plugin timestamp.vim
+In .vimrc add the following to suppport ST-Ericsson revision date format >
+  let b:timestamp_modelines=20
+  let timestamp_regexp = '\v\C%(<%(Last %([cC]hanged?|modified)|Modified|Revision date)\s*:\s+)@<=\a+ \d{2} \a+ \d{4} \d{ 2}:\d{2}:\d{2}%(\s+[AP]M)?%(\s+\a+)?|TIMESTAMP'
+
+>>> 
+---------------
+Aligning indented columns
+<<<
+Get plugin Align 
+Ex. to align VHDL port mapping, visual select lines then: >
+  :Align =>
+
+Syntax is: (where separators are any characters except blank) >
+  :Align opt sep1 sep2 ...
+
+>>> 
+---------------
+Search/grep in current buffer
+<<< >
+  :vimgrep /regexp/ %
+This will put grep result in Quickfix list. Then do >
+  :cope
+to open the list and navigate to the matching lines.
+>>> 
+---------------
+Search/grep multiple buffers
+<<< >
+  :bufdo vimgrepadd /regexp/ %
+result in Quickfix list. Searching multiple times requires that
+the list is cleared as the vimgrepadd appends to Quickfix list. Then
+do the following >
+  :cex ""
+
+>>> 
+---------------
+Search multiple buffers
+<<<
+Get plugin buffers_search_and_replace.vim and put in ~/.vim/plugin
+It seems that there're some issues that sometimes destroys the whole Vim
+keymapping
+>
+ :Bs somesearchpat
+>>> 
+---------------
+yankstack :  similar to kill ring in Emacs. (seems more stable than YankRing)
+<<<
+*meta-p*          cycle backward through your history of yanks
+*meta-shift-p*    cycle forwards through your history of yanks
+
+After pasting some text using |p| or |P|, you can cycle through your
+yank history using these commands.
+
+Typing either of these keys without pasting first will do a normal paste
+(the same as typing `p`). This also works in insert mode.
+
+>>>
+---------------
+YankRing plugin, similar to kill ring in Emacs. Yank ring synched between all
+running Vim instances.
+<<<
+ *p* CTRL-P          Push from yank buffer then each C-P changes to previous kill
+ *p* CTRL-N          changes to next kill
+  Show the yank ring in a buffer. While in yank ring *p* pushes the selected
+  item and *q* exits. >
+  :YRShow
+>>> 
+---------------
+Load new plugin without restarting VIM.
+<<<
+>
+ :runtime! plugin/**/*.vim
+
+Alternatively >
+ :source ~/.vim/plugin/somefile.vim
+
+>>> 
+---------------
+Get plugin bufexplorer.vim
+<<<
+*\be*    Opens BufExplorer window
+*\bv*    Opens windows split vertically
+*\bs*    Opens window split horizontally
+In BufExplorer windows
+*q*      Quit and remove BE window
+*s*      Change sorting order.
+ 
+>>> 
+---------------
+Using ctags
+<<<
+ Produce a tags file using ctags. By default VIM looks in same dir as source
+ file after a "tags" file. To modify search path: >
+ :set tags
+ :set tags=./tags,../tags
+
+*CTRL-]*
+*<C-LeftMouse>*   Jump to the definition of the keyword under the cursor. 
+
+*<C-RightMouse>*
+*CTRL-T*          Jump back from the definition.
+
+*CTRL-W* *CTRL-]* Jump to definition in a new window.
+
+ To jump to previous tag locations >
+  :tags
+
+Also checkout ctags.vim plugin.
+
+>>> 
+---------------
+NrrwRgn : A Narrow Region Plugin similar to Emacs
+<<<
+
+*\nr*  narrow to region from the visual selection.
+       Exit from narrowed buffer through *:w* (changes will
+       be written back) or *:q*
+
+>>> 
+---------------
+VimBall unpacking
+<<<
+>
+    > vim something.vba 
+    :so % 
+
+>>> 
+---------------
+Variables
+<<< >
+  :echo variablename      To examine variable value
+  :let variablename=value To set a variable value
+  :let                    To show all variables
+  :set optionname         To examine an option value
+  :set optionname=value   To set an option value
+  :set all                To show all options
+>>> 
+---------------
+DrawIt : Ascii drawing rectangles
+<<<
+ Install the drawit.vba plugin then:
+*\di* Enter DrawIt mode
+*\ds* Exit DrawIt mode
+
+ In DrawIt mode:
+*<left,right,up,down>* Draw/erase line.
+*<shift><left,right,up,down>* Move, without drawing.
+*<space>* Toggle drawing/erasing
+*\b*      Draw box/rectangle. First *<CTRL-V>* to visual select region. 
+>>>
+---------------
+.vimrc
+<<< >
+
+  set hlsearch " highlight search results
+  syntax enable " syntax coloring
+  " 
+  set wildchar=<Tab> wildmenu wildmode=full
+  set wildcharm=<C-Z>
+  nnoremap <F10> :b <C-Z>
+
+  se is " turn on incremental search a'la emacs
+
+  set autochdir " so that file operations are relative to directory of current buffer 
+
+  " Indent automatically depending on filetype
+  filetype indent on
+  set autoindent
+  
+  set expandtab
+  set shiftwidth=2
+  set softtabstop=2
+
+>>> 
+
+-- vim:tw=78:ts=8:ft=help:norl:foldmethod=marker foldmarker=<<<,>>>
