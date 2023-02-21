@@ -16,7 +16,7 @@ theme.font = "JetBrainsMono 11"
 theme.useless_gap  = dpi(5)
 theme.border_width = dpi(3)
 
-theme.black = "#1e1e28"
+theme.black = "#1e1e2e"
 theme.deep_black = "#1b1923"
 theme.white = "#d7dae0"
 theme.light_white = "#fafafa"
@@ -27,7 +27,7 @@ theme.yellow = "#eadda0"
 theme.green = "#b3e1a3"
 theme.blue = "#a4b9ef"
 theme.purple = "#c6aae8"
-theme.grey = "#6e6c7c"
+theme.grey = "#313244"
 
 theme.bg_normal = theme.black
 theme.bg_focus = theme.deep_black
@@ -111,8 +111,6 @@ theme.titlebar_maximized_button_focus_inactive  = themes_path .. "default/titleb
 theme.titlebar_maximized_button_normal_active   = themes_path .. "default/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active    = themes_path .. "default/titlebar/maximized_focus_active.png"
 
-theme.wallpaper = themes_path .. "default/background.png"
-
 -- You can use your own layout icons like this:
 theme.layout_fairh      = themes_path .. "default/layouts/fairhw.png"
 theme.layout_fairv      = themes_path .. "default/layouts/fairvw.png"
@@ -139,6 +137,8 @@ theme.awesome_icon = theme_assets.awesome_icon(
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
 theme.icon_theme = nil
+
+theme.wallpaper = themes_path .. "default/endeavour-black-4k.png"
 
 return theme
 
