@@ -2,10 +2,12 @@ local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
+require("widgets.round_container")
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+local mytextclock = wibox.widget.textclock("    %H:%M  󰃶 %a %b %d  ")
+local volume_widget = require('widgets.volume')
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -46,7 +48,7 @@ local tasklist_buttons = gears.table.join(
         awful.client.focus.byidx(1)
     end),
     awful.button({}, 5, function()
-        awful.client.focus.byidx(-1)
+        awful.client.focus.byidx( -1)
     end)
 )
 
@@ -58,9 +60,10 @@ local function set_wallpaper(s)
         if type(wallpaper) == "function" then
             wallpaper = wallpaper(s)
         end
-        gears.wallpaper.maximized(wallpaper, s, true)
     end
+    gears.wallpaper.maximized(beautiful.wallpaper, s, true)
 end
+
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
@@ -68,6 +71,10 @@ screen.connect_signal("property::geometry", set_wallpaper)
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
+
+    s.padding = {
+        top = 60
+    }
 
     -- Each screen has its own tag table.
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
@@ -82,31 +89,67 @@ awful.screen.connect_for_each_screen(function(s)
             awful.layout.inc(1)
         end),
         awful.button({}, 3, function()
-            awful.layout.inc(-1)
+            awful.layout.inc( -1)
         end),
         awful.button({}, 4, function()
             awful.layout.inc(1)
         end),
         awful.button({}, 5, function()
-            awful.layout.inc(-1)
+            awful.layout.inc( -1)
         end)
     ))
+
     -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist({
-        screen = s,
-        filter = awful.widget.taglist.filter.all,
-        buttons = taglist_buttons,
-    })
+    s.mytaglist = round_container(require("widgets.taglist")(s))
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist({
-        screen = s,
-        filter = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons,
+        screen          = s,
+        filter          = awful.widget.tasklist.filter.currenttags,
+        buttons         = tasklist_buttons,
+        style           = {
+            shape = gears.shape.rounded_bar,
+        },
+        widget_template = {
+            {
+                {
+                    {
+                        {
+                            id     = 'icon_role',
+                            widget = wibox.widget.imagebox,
+                        },
+                        margins = 2,
+                        widget  = wibox.container.margin,
+                    },
+                    {
+                        id     = 'text_role',
+                        widget = wibox.widget.textbox,
+                    },
+                    layout = wibox.layout.fixed.horizontal,
+                },
+                left   = 10,
+                right  = 10,
+                widget = wibox.container.margin
+            },
+            id     = 'background_role',
+            widget = wibox.container.background,
+        },
     })
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
+    s.mywibox = wibox
+        {
+            screen = s,
+            visible = true,
+            ontop = true,
+            width = s.geometry.width - 20,
+            y = 10,
+            x = 10,
+            height = 50,
+            shape = function(cr, width, height)
+                gears.shape.rounded_rect(cr, width, height, 20)
+            end,
+        }
 
     -- Add widgets to the wibox
     s.mywibox:setup({
@@ -120,12 +163,22 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            require('widgets.audio'),
-            mykeyboardlayout,
+            round_container(volume_widget),
+            round_container(mytextclock),
+            round_container(mykeyboardlayout),
             wibox.widget.systray(),
-            mytextclock,
-            s.mylayoutbox,
         },
     })
 end)
 -- }}}
+
+-- Hide wibox when fullscreen
+local function toggle_wibox(c)
+    if c.fullscreen then
+        c.screen.mywibox.visible = false
+    else
+        c.screen.mywibox.visible = true
+    end
+end
+
+client.connect_signal("property::fullscreen", toggle_wibox)

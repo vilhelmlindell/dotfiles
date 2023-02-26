@@ -31,7 +31,7 @@ return {
     'L3MON4D3/LuaSnip', -- Snippets plugin
     'onsails/lspkind.nvim', -- Completion icons
     "jose-elias-alvarez/null-ls.nvim",
-    "folke/neodev.nvim",
+    {"folke/neodev.nvim", config = true },
      { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
      { "catppuccin/nvim", as = "catppuccin" }, -- Colorscheme
     ({

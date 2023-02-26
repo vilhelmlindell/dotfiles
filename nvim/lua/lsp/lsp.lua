@@ -23,7 +23,6 @@ null_ls.setup({
     sources = {
         null_ls.builtins.formatting.clang_format,
         null_ls.builtins.formatting.autopep8,
-        null_ls.builtins.formatting.gofmt,
         null_ls.builtins.formatting.prettierd,
         null_ls.builtins.formatting.rustfmt,
     },
@@ -38,7 +37,7 @@ null_ls.setup({
                 end,
             })
         end
-    end,
+    end
 })
 
 local on_attach = function(client, bufnr)
@@ -63,13 +62,56 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
     vim.api.nvim_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
     vim.api.nvim_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+
+    if client.supports_method("textDocument/formatting") then
+        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+                vim.lsp.buf.format({ bufnr = bufnr })
+            end,
+        })
+    end
 end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+-- Default server configuration
 for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup({
         on_attach = on_attach,
         capabilities = capabilities,
     })
 end
+
+
+--lspconfig.rust_analyzer.setup {
+--    on_attach = on_attach,
+--    settings = {
+--        ['rust-analyzer'] = {
+--            checkOnSave = {
+--                allFeatures = true,
+--                overrideCommand = {
+--                    'cargo', 'clippy', '--workspace', '--message-format=json',
+--                    '--all-targets', '--all-features'
+--                }
+--            }
+--        }
+--    }
+--}
+--lspconfig.lua_ls.setup({
+--    settings = {
+--        Lua = {
+--            -- See https://github.com/CppCXY/EmmyLuaCodeStyle/blob/master/lua.template.editorconfig for example
+--            format = {
+--                enable = true,
+--                max_line_length = 200,
+--                default_config = {
+--                    indent_style = "space",
+--                    indent_size = "2"
+--                }
+--            }
+--        }
+--    }
+--})

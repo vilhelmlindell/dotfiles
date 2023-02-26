@@ -9,8 +9,7 @@ require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox") -- Theme handling library
 local beautiful = require("beautiful")
--- Notification library
-local naughty = require("naughty")
+-- Notification library local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
@@ -94,9 +93,9 @@ myawesomemenu = {
             hotkeys_popup.show_help(nil, awful.screen.focused())
         end,
     },
-    { "manual", terminal .. " -e man awesome" },
+    { "manual",      terminal .. " -e man awesome" },
     { "edit config", editor_cmd .. " " .. awesome.conffile },
-    { "restart", awesome.restart },
+    { "restart",     awesome.restart },
     {
         "quit",
         function()
@@ -144,18 +143,18 @@ awful.rules.rules = {
     {
         rule = {},
         properties = {
-            border_width = beautiful.border_width,
-            border_color = beautiful.border_normal,
-            focus = awful.client.focus.filter,
-            raise = true,
-            keys = clientkeys,
-            buttons = clientbuttons,
-            screen = awful.screen.preferred,
-            placement = awful.placement.no_overlap + awful.placement.no_offscreen,
+            border_width         = beautiful.border_width,
+            border_color         = beautiful.border_normal,
+            focus                = awful.client.focus.filter,
+            raise                = true,
+            keys                 = clientkeys,
+            buttons              = clientbuttons,
+            screen               = awful.screen.preferred,
+            placement            = awful.placement.no_overlap + awful.placement.no_offscreen,
             maximized_vertical   = false,
             maximized_horizontal = false,
-            floating = false,
-            maximized = false
+            floating             = false,
+            maximized            = false
         },
     },
 
@@ -305,4 +304,3 @@ end)
 
 -- Autostart applications
 awful.spawn.with_shell("picom")
-awful.spawn.with_shell("nitrogen --restore")
