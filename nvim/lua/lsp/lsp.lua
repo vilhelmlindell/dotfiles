@@ -1,10 +1,9 @@
 local servers = {
     "clangd",
     "rust_analyzer",
-    "pyright",
-    "tsserver",
     "omnisharp",
-    "lua_ls"
+    "lua_ls",
+    "pyright"
 }
 
 require("neodev").setup()
@@ -114,4 +113,6 @@ end
 --            }
 --        }
 --    }
+--})
+--})
 --})

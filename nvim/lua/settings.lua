@@ -21,5 +21,6 @@ vim.opt.relativenumber = false
 vim.opt.cursorline = true
 vim.opt.hidden = true
 vim.opt.mouse = 'a'
+
 vim.cmd.colorscheme "catppuccin"
 vim.cmd('set clipboard+=unnamedplus')
