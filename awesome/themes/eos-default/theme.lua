@@ -68,8 +68,7 @@ theme.menu_border_width                         = 0
 theme.menu_height                               = 25
 theme.menu_width                                = 260
 
--- Icons for the theme.
-theme.menu_submenu_icon                         = theme.dir .. "/icons/submenu.png"
+-- Icons for the theme. theme.menu_submenu_icon                         = theme.dir .. "/icons/submenu.png"
 theme.awesome_icon                              = theme.dir .. "/icons/awesome.png"
 theme.taglist_squares_sel                       = theme.dir .. "/icons/square_sel.png"
 theme.taglist_squares_unsel                     = theme.dir .. "/icons/square_unsel.png"
@@ -377,14 +376,11 @@ end
 local function round_container(widget)
     return {
         {
-            {
-                widget = widget,
-            },
+            widget,
             shape  = function(cr, width, height)
                 gears.shape.rounded_rect(cr, width, height, 15)
             end,
-            fg     = theme.fg_normal,
-            bg     = theme.fg_urgent,
+            bg     = theme.blue,
             widget = wibox.container.background
         },
         left   = 0,
@@ -468,21 +464,20 @@ function theme.at_screen_connect(s)
             -- wibox.container.background(wibox.container.margin(wibox.widget { mailicon, mail and mail.widget, layout = wibox.layout.align.horizontal }, 4, 7), "#343434"),
             --arrow("alpha", "#7E7EFF"),
             --wibox.container.background(wibox.container.margin(wibox.widget { mpdicon, theme.mpd.widget, layout = wibox.layout.align.horizontal }, 3, 6), "#7E7EFF"),
-            wibox.container.background(wibox.container.margin(wibox.widget { memicon, mem.widget, layout = wibox.layout.align.horizontal }, 2, 3), "#7E7EFF"),
-            wibox.container.background(wibox.container.margin(wibox.widget { cpuicon, cpu.widget, layout = wibox.layout.align.horizontal }, 3, 4), "#7E3EBE"),
+            round_container(wibox.widget { memicon, mem.widget, layout = wibox.layout.align.horizontal }),
+            round_container(wibox.widget { cpuicon, cpu.widget, layout = wibox.layout.align.horizontal }),
             --arrow("#7E3EBE", "#7E7EFF"),
             --wibox.container.background(wibox.container.margin(wibox.widget { tempicon, temp.widget, layout = wibox.layout.align.horizontal }, 4, 4), "#7E7EFF"),
             --arrow("#7E7EFF", "#7E3EBE"),
             --wibox.container.background(wibox.container.margin(wibox.widget { weathericon, theme.weather.widget, layout = wibox.layout.align.horizontal }, 3, 3), "#7E3EBE"),
-            wibox.widget { baticon, bat.widget, layout = wibox.layout.align.horizontal },
-            wibox.widget { volicon, theme.volume.widget, layout = wibox.layout.align.horizontal },
-            wibox.widget { nil, neticon, net.widget, layout = wibox.layout.align.horizontal },
+            round_container(wibox.widget { baticon, bat.widget, layout = wibox.layout.align.horizontal }),
+            round_container(wibox.widget { volicon, theme.volume.widget, layout = wibox.layout.align.horizontal }),
+            round_container(wibox.widget { nil, neticon, net.widget, layout = wibox.layout.align.horizontal }),
             round_container(clock),
-            wibox.widget.systray(),
+            round_container(wibox.widget.systray()),
             --s.mylayoutbox,
         },
     }
-
     -- Creating the bottom wibox.
     s.mybottomwibox = awful.wibar({
         position = "bottom",
