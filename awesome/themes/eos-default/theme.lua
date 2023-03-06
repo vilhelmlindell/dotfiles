@@ -383,10 +383,10 @@ local function round_container(widget)
             bg     = theme.blue,
             widget = wibox.container.background
         },
-        left   = 0,
-        right  = 0,
-        top    = 5,
-        bottom = 5,
+        left   = 5,
+        right  = 5,
+        top    = 9,
+        bottom = 9,
         widget = wibox.container.margin
     }
 end
@@ -419,7 +419,8 @@ function theme.at_screen_connect(s)
         awful.button({}, 4, function() awful.layout.inc(1) end),
         awful.button({}, 5, function() awful.layout.inc( -1) end)))
     -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons)
+    --s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons)
+    s.mytaglist = round_container(require("themes.eos-default.widgets.taglist")(s))
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
