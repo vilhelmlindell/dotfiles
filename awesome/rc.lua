@@ -807,6 +807,29 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 
+tag.connect_signal("property::layout", function(t)
+    local clients = t:clients()
+    for k, c in pairs(clients) do
+        if c.floating or c.first_tag.layout.name == "floating" then
+            awful.titlebar.show(c)
+            c.ontop = true
+        else
+            awful.titlebar.hide(c)
+            c.ontop = false
+        end
+    end
+end)
+
+local function toggle_wibox(c)
+    if c.fullscreen then
+        c.screen.mywibox.visible = false
+    else
+        c.screen.mywibox.visible = true
+    end
+end
+
+client.connect_signal("property::fullscreen", toggle_wibox)
+
 -- }}}
 
 -- {{{ Autostart applications
