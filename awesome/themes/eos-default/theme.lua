@@ -32,33 +32,47 @@ theme.wallpaper                                 = os.getenv("HOME") ..
 theme.font                                      = "JetBrains NF 14"
 theme.taglist_font                              = "JetBrains NF 14"
 
-theme.black                                     = "#1e1e2e"
-theme.deep_black                                = "#1b1923"
-theme.pink                                      = "#f0afe1"
-theme.white                                     = "#d7dae0"
-theme.light_white                               = "#fafafa"
-theme.red                                       = "#e28c8c"
-theme.orange                                    = "#f9c096"
-theme.yellow                                    = "#eadda0"
-theme.green                                     = "#b3e1a3"
-theme.blue                                      = "#a4b9ef"
-theme.purple                                    = "#c6aae8"
-theme.grey                                      = "#313244"
+theme.rosewater                                 = "#f5e0dc"
+theme.flamingo                                  = "#f2cdcd"
+theme.pink                                      = "#f5c2e7"
+theme.mauve                                     = "#cba6f7"
+theme.red                                       = "#f38ba8"
+theme.maroon                                    = "#eba0ac"
+theme.peach                                     = "#fab387"
+theme.yellow                                    = "#f9e2af"
+theme.green                                     = "#a6e3a1"
+theme.teal                                      = "#94e2d5"
+theme.sky                                       = "#89dceb"
+theme.sapphire                                  = "#74c7ec"
+theme.blue                                      = "#89b4fa"
+theme.lavender                                  = "#b4befe"
+theme.text                                      = "#cdd6f4"
+theme.subtext1                                  = "#bac2de"
+theme.subtext0                                  = "#a6adc8"
+theme.overlay2                                  = "#9399b2"
+theme.overlay1                                  = "#7f849c"
+theme.overlay0                                  = "#6c7086"
+theme.surface2                                  = "#585b70"
+theme.surface1                                  = "#45475a"
+theme.surface0                                  = "#313244"
+theme.base                                      = "#1e1e2e"
+theme.mantle                                    = "#181825"
+theme.crust                                     = "#11111b"
 
-theme.bg_normal                                 = theme.black
-theme.bg_focus                                  = theme.deep_black
-theme.bg_urgent                                 = theme.white
-theme.bg_minimize                               = theme.grey
-theme.bg_systray                                = theme.black
+theme.bg_normal                                 = theme.base
+theme.bg_focus                                  = theme.surface0
+theme.bg_urgent                                 = theme.peach
+theme.bg_minimize                               = theme.yellow
+theme.bg_systray                                = theme.blue
 
-theme.fg_normal                                 = theme.white
-theme.fg_focus                                  = theme.orange
-theme.fg_urgent                                 = theme.red
-theme.fg_minimize                               = theme.light_white
+theme.fg_normal                                 = theme.text
+theme.fg_focus                                  = theme.surface0
+theme.fg_urgent                                 = theme.peach
+theme.fg_minimize                               = theme.yellow
 
-theme.border_normal                             = theme.black
+theme.border_normal                             = theme.base
 theme.border_focus                              = theme.blue
-theme.border_marked                             = theme.purple
+theme.border_marked                             = theme.mauve
 
 theme.taglist_bg_focus                          = theme.blue
 
@@ -426,13 +440,33 @@ function theme.at_screen_connect(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({
-        position = "top",
-        screen = s,
-        height = s.workarea.height / 30,
-        bg = theme.bg_normal,
-        fg = theme.fg_normal
-    })
+    --s.mywibox = awful.wibar({
+    --    position = "top",
+    --    screen = s,
+    --    height = s.workarea.height / 30,
+    --    bg = theme.bg_normal,
+    --    fg = theme.fg_normal
+    --})
+
+
+    s.padding = {
+        top = 60
+    }
+
+    s.mywibox = wibox
+        {
+            screen = s,
+            visible = true,
+            ontop = true,
+            width = s.geometry.width - 20,
+            align = "center",
+            y = 10,
+            x = 10,
+            height = 50,
+            shape = function(cr, width, height)
+                gears.shape.rounded_rect(cr, width, height, 20)
+            end,
+        }
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -475,32 +509,42 @@ function theme.at_screen_connect(s)
             round_container(wibox.widget { volicon, theme.volume.widget, layout = wibox.layout.align.horizontal }),
             round_container(wibox.widget { nil, neticon, net.widget, layout = wibox.layout.align.horizontal }),
             round_container(clock),
-            round_container(wibox.widget.systray()),
+            round_container(
+                {
+                    wibox.layout.margin(wibox.widget.systray(true), 4, 4, 4, 4),
+                    shape  = function(cr, width, height)
+                        gears.shape.rounded_rect(cr, width, height, 15)
+                    end,
+                    bg     = theme.blue,
+                    widget = wibox.container.background
+                }
+            )
+
             --s.mylayoutbox,
         },
     }
     -- Creating the bottom wibox.
-    s.mybottomwibox = awful.wibar({
-        position = "bottom",
-        screen = s,
-        border_width = 0,
-        height = 20,
-        bg = theme.bg_normal,
-        fg = theme.fg_normal
-    })
+    --s.mybottomwibox = awful.wibar({
+    --    position = "bottom",
+    --    screen = s,
+    --    border_width = 0,
+    --    height = 20,
+    --    bg = theme.bg_normal,
+    --    fg = theme.fg_normal
+    --})
 
-    -- Adding widgets to the bottom wibox.
-    s.mybottomwibox:setup {
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-        },
-        s.mytasklist, -- Middle widget
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-            s.mylayoutbox,
-        },
-    }
+    ---- Adding widgets to the bottom wibox.
+    --s.mybottomwibox:setup {
+    --    layout = wibox.layout.align.horizontal,
+    --    { -- Left widgets
+    --        layout = wibox.layout.fixed.horizontal,
+    --    },
+    --    s.mytasklist, -- Middle widget
+    --    { -- Right widgets
+    --        layout = wibox.layout.fixed.horizontal,
+    --        s.mylayoutbox,
+    --    },
+    --}
 end
 
 return theme
