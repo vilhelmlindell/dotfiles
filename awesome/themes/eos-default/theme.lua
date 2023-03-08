@@ -26,11 +26,11 @@ theme.dir                                       = os.getenv("HOME") .. "/.config
 -- Theme wallpaper.
 --theme.wallpaper                                 = "/usr/share/endeavouros/backgrounds/endeavouros-wallpaper.png"
 theme.wallpaper                                 = os.getenv("HOME") ..
-    "/.config/awesome/themes/wallpapers/mountains_1.png"
+    "/.config/awesome/themes/wallpapers/evening-sky.png"
 
 -- Theme fonts.
-theme.font                                      = "JetBrains NF 14"
-theme.taglist_font                              = "JetBrains NF 14"
+theme.font                                      = "JetBrains Mono 14"
+theme.taglist_font                              = "JetBrains Mono 14"
 
 theme.rosewater                                 = "#f5e0dc"
 theme.flamingo                                  = "#f2cdcd"
@@ -59,13 +59,24 @@ theme.base                                      = "#1e1e2e"
 theme.mantle                                    = "#181825"
 theme.crust                                     = "#11111b"
 
+theme.colors                                    = { theme.rosewater,
+    theme.flamingo,
+    theme.pink, theme.mauve,
+    theme.red,
+    theme.maroon,
+    theme.peach,
+    theme.yellow,
+    theme.green,
+    theme.teal,
+    theme.sky, theme.sapphire, theme.blue, theme.lavender }
+
 theme.bg_normal                                 = theme.base
 theme.bg_focus                                  = theme.surface0
 theme.bg_urgent                                 = theme.peach
 theme.bg_minimize                               = theme.yellow
 theme.bg_systray                                = theme.blue
 
-theme.fg_normal                                 = theme.text
+theme.fg_normal                                 = theme.crust
 theme.fg_focus                                  = theme.surface0
 theme.fg_urgent                                 = theme.peach
 theme.fg_minimize                               = theme.yellow
@@ -154,7 +165,7 @@ local separators                                = lain.util.separators
 -- Textclock
 local clockicon = wibox.widget.imagebox(theme.widget_clock)
 local clock = awful.widget.watch(
-    "date +'%a %d %b %R'", 60,
+    "date +'%a %d %b %R '", 60,
     function(widget, stdout)
         widget:set_markup(" " .. markup.font(theme.font, stdout))
     end
@@ -164,7 +175,7 @@ local clock = awful.widget.watch(
 theme.cal = lain.widget.cal({
     attach_to = { clock },
     notification_preset = {
-        font = "Noto Sans Mono Medium 10",
+        font = "JetBrains Mono 14",
         fg   = theme.fg_normal,
         bg   = theme.bg_normal
     }
@@ -355,7 +366,7 @@ theme.volume = lain.widget.alsa({
 local neticon = wibox.widget.imagebox(theme.widget_net)
 local net = lain.widget.net({
     settings = function()
-        widget:set_markup(markup.fontfg(theme.font, "#FEFEFE", " " .. net_now.received .. " ↓↑ " ..
+        widget:set_markup(markup.fontfg(theme.font, theme.fg_normal, " " .. net_now.received .. " ↓↑ " ..
         net_now.sent .. " "))
     end
 })
@@ -386,15 +397,17 @@ local function pl(widget, bgcolor, padding)
     return wibox.container.background(wibox.container.margin(widget, 16, 16), bgcolor, theme.powerline_rl)
 end
 
+local color_index = 15
 
 local function round_container(widget)
+    color_index = color_index + 1
     return {
         {
             widget,
             shape  = function(cr, width, height)
                 gears.shape.rounded_rect(cr, width, height, 15)
             end,
-            bg     = theme.blue,
+            bg     = theme.colors[color_index % #theme.colors],
             widget = wibox.container.background
         },
         left   = 5,

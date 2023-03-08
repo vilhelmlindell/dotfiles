@@ -26,13 +26,13 @@ local get_taglist = function(s)
     ----------------------------------------------------------------------
 
     local unfocus_icon = " "
-    local unfocus_color = beautiful.red
+    local unfocus_color = beautiful.green
 
     local empty_icon = " "
-    local empty_color = beautiful.gray
+    local empty_color = beautiful.crust
 
     local focus_icon = " "
-    local focus_color = beautiful.green
+    local focus_color = beautiful.blue
 
     ----------------------------------------------------------------------
 
@@ -80,7 +80,7 @@ local get_taglist = function(s)
 
             update_callback = function(self, c3, index, objects)
                 update_tags(self, c3)
-            end
+            end,
         },
         buttons = taglist_buttons
     }
