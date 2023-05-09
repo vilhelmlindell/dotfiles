@@ -24,11 +24,11 @@ font:
   bold_italic:
     family: JetBrainsMono Nerd Font
     style: Bold Italic
-  size: 10
+  size: 17
 draw_bold_text_with_bright_colors: true
 
 import:
-  - ~/.config/alacritty/catppuccin/catppuccin-mocha.yml
+  - ~/.config/alacritty/catppuccin-mocha.yml
 
 selection:
   save_to_clipboard: false
