@@ -7,4 +7,5 @@ pacman -S npm
 pacman -S rustup
 pacman -S xclip
 pacman -S ripgrep
+pacman -S neovim
 rustup default stable
