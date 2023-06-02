@@ -1,4 +1,5 @@
 sudo pacman -S fish
+pacman -S which
 chsh -s $(which fish)
 curl -sS https://starship.rs/install.sh | sh
 
