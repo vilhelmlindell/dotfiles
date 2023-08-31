@@ -1,3 +1,7 @@
 if status is-interactive
-  starship init fish | source
+    if not set -q TMUX
+        alias tmux="TERM=screen-256color-bce tmux"
+        exec tmux
+    end
+    starship init fish | source
 end
