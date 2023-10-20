@@ -1,0 +1,49 @@
+[WEATHER_SIGNALER]
+command=~/.config/i3blocks/weather/weather_signaler
+interval=once
+
+[WEATHER]
+command=~/.config/i3blocks/weather/weather_info.sh
+interval=300
+color=#f5e0dc
+signal=2
+
+[DISK]
+command=df -h / | awk '/\//{ printf(" 💾 %4s/%s \n", $4, $2) }'
+interval=2
+color=#f2cdcd
+
+[MEM]
+command=free -h | awk '/Mem:/ { printf("    %5s/%s \n", $3, $2) }'
+interval=1
+color=#cdd6f4
+
+[CPU]
+full_text=   0.00% @ +00.0°C 
+command=~/.config/i3blocks/cpu/cpu_info.sh
+interval=1
+color=#94e2d5
+
+[BRIGHTNESS]
+command=~/.config/i3blocks/brightness/brightness.sh
+interval=1
+color=#f9e2af
+
+[SOUND_BURST]
+command=~/.config/i3blocks/sound/sound_burst.sh
+interval=once
+
+[SOUND]
+full_text= 🔇:  0% 
+command=~/.config/i3blocks/sound/sound_info.sh
+interval=1
+signal=1
+color=#89dceb
+
+[BATTERY]
+command=~/.config/i3blocks/battery/battery_info.sh
+interval=3
+
+[TIME_DATE]
+command=date +" 󰃭  %a, %d %b   %H:%M:%S"
+interval=1

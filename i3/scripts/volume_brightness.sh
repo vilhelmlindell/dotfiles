@@ -4,7 +4,7 @@
 # taken from here: https://gitlab.com/Nmoleo/i3-volume-brightness-indicator
 
 # See README.md for usage instructions
-bar_color="#7f7fff"
+bar_color="#89b4fa"
 volume_step=1
 brightness_step=5
 max_volume=100
@@ -22,7 +22,7 @@ function get_mute {
 # Uses regex to get brightness from xbacklight
 function get_brightness {
     #brightnessctl | grep -oP '(?<=\()\d+(?=%)'
-    brillo [-G]
+    brillo -G | sed 's/...$//'
 }
 
 # Returns a mute icon, a volume-low icon, or a volume-high icon, depending on the volume
@@ -54,7 +54,7 @@ function show_volume_notif {
 function show_brightness_notif {
     brightness=$(get_brightness)
     get_brightness_icon
-    dunstify -t 1000 -r 2593 -u normal "$brightness_icon $brightness%" -h int:value:$brightness -h string:hlcolor:$bar_color
+    dunstify -t 1000 -r 2593 -u normal "$brightness_icon  $brightness%" -h int:value:$brightness -h string:hlcolor:$bar_color
 }
 
 # Main function - Takes user input, "volume_up", "volume_down", "brightness_up", or "brightness_down"
@@ -68,30 +68,30 @@ case $1 in
     else
         pactl set-sink-volume @DEFAULT_SINK@ +$volume_step%
     fi
-    show_volume_notif
+    #show_volume_notif
     ;;
 
     volume_down)
     # Raises volume and displays the notification
     pactl set-sink-volume @DEFAULT_SINK@ -$volume_step%
-    show_volume_notif
+    #show_volume_notif
     ;;
 
     volume_mute)
     # Toggles mute and displays the notification
     pactl set-sink-mute @DEFAULT_SINK@ toggle
-    show_volume_notif
+    #show_volume_notif
     ;;
 
     brightness_up)
     # Increases brightness and displays the notification
     pkexec /usr/bin/brillo -s intel_backlight -A $brightness_step
-    show_brightness_notif
+    #show_brightness_notif
     ;;
 
     brightness_down)
     # Decreases brightness and displays the notification
     pkexec /usr/bin/brillo -s intel_backlight -U $brightness_step
-    show_brightness_notif
+    #show_brightness_notif
     ;;
 esac
