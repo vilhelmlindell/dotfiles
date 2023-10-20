@@ -4,3 +4,6 @@
 [submodule "nvchad-config"]
 	path = nvchad-config
 	url = git@github.com:vilhelmlindell/nvchad-config.git
+[submodule "alacritty/themes"]
+	path = alacritty/themes
+	url = git@github.com:alacritty/alacritty-theme.git
