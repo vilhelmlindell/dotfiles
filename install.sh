@@ -10,7 +10,8 @@ ln -sf $PWD/picom ~/.config
 ln -sf $PWD/tmux ~/.config
 ln -sf $PWD/alacritty ~/.config
 ln -sf $PWD/i3blocks ~/.config
-ln -sf ~/dotfiles/dunst ~/.config
+ln -sf $PWD/dunst ~/.config
+ln -sf $PWD/zellij ~/.config
 sudo ln -sf $PWD/auto-cpufreq/auto-cpufreq.conf /etc/
 
 yay -S fish --noconfirm
@@ -20,12 +21,16 @@ curl -sS https://starship.rs/install.sh | sh
 
 yay -S picom --noconfirm
 
-yay -S alacritty --noconfirm
+yay -S wezterm --noconfirm
 
 yay -S tmux --noconfirm
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
+yay -S zellij --noconfirm
+
 yay -S neovim --noconfirm
+yay -S thermald --noconfirm
+sudo systemctl enable thermald.service
 
 # For getting pyright to work
 python3 -m venv ~/venvs/.nvim-venv && source ~/venvs/.nvim-venv/bin/activate.fish && python3 -m pip install pynvim && which python
@@ -39,6 +44,7 @@ yay -S xkblayout-state --noconfirm
 yay -S throttled --noconfirm
 sudo systemctl enable --now throttled.service
 yay -S thinkfan --noconfirm
+yay -S glsl_analyzer-bin --noconfirm
 
 yay -S ghc --noconfirm
 yay -S ghcup-hs-bin --noconfirm

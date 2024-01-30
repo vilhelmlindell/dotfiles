@@ -178,7 +178,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # keybinding in fancy rofi (automated):
-bindsym F1 exec --no-startup-id ~/.config/i3/scripts/keyhint-2
+# bindsym F1 exec --no-startup-id ~/.config/i3/scripts/keyhint-2
 # alternative
 # keybinding list in editor:
 # bindsym $mod+F1 exec xed ~/.config/i3/keybindings
@@ -342,16 +342,7 @@ set $ws10 "10"
 #
 # or:
 #
-# picom: https://wiki.archlinux.org/title/Picom
-# manpage: https://man.archlinux.org/man/picom.1.en
-# The default configuration is available in /etc/xdg/picom.conf 
-# For modifications, it can be copied to ~/.config/picom/picom.conf or ~/.config/picom.conf
-# install picom package (yay -S picom)
-# start using default config 
-#exec_always --no-startup-id picom -b
-#
-# for custom config:
-#exec_always --no-startup-id picom --config  ~/.config/picom/picom.conf
+exec_always --no-startup-id picom --config  ~/.config/picom/picom.conf --experimental-backends
 
 #############################################
 # autostart applications/services on login: #
@@ -366,7 +357,7 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # if enabled you should comment welcome app.
 # https://github.com/jceb/dex
 #exec --no-startup-id dex -a -s /etc/xdg/autostart/:~/.config/autostart/
-exec --no-startup-id dex --autostart --environment i3
+# exec --no-startup-id dex --autostart --environment i3
 
 # start welcome app
 #exec --no-startup-id sh /usr/share/endeavouros/scripts/welcome --startdelay=3 
@@ -409,7 +400,7 @@ exec --no-startup-id xset s 480 dpms 600 600 600
 # Desktop notifications
 # dunst config used ~/.config/dunst/dunstrc
 # set alternative config if needed:
-exec --no-startup-id /usr/bin/dunst --config ~/.config/dunst/dunstrc
+#exec --no-startup-id /usr/bin/dunst --config ~/.config/dunst/dunstrc
 # may yneed to run dbus-launch explicitly: 
 #exec --no-startup-id dbus-launch /usr/bin/dunst
 #exec --no-startup-id /usr/bin/dunst
@@ -423,21 +414,20 @@ exec --no-startup-id /usr/bin/dunst --config ~/.config/dunst/dunstrc
 
 # Autostart apps as you like
 #exec --no-startup-id sleep 2 && xfce4-terminal
-exec --no-startup-id sleep 7 && firefox https://github.com/endeavouros-team/endeavouros-i3wm-setup/blob/main/force-knowledge.md
 #exec --no-startup-id sleep 3 && thunar
 
 ###############
 # system tray #
 ###############
 # if you do not use dex: 
-exec --no-startup-id dex --autostart --environment i3
+# exec --no-startup-id dex --autostart --environment i3
 # you need to have tray apps started manually one by one:
 
 # start blueberry app for managing bluetooth devices from tray:
 exec --no-startup-id blueberry-tray
 
 # networkmanager-applet
-#exec --no-startup-id nm-applet
+exec --no-startup-id nm-applet
 
 # clipman-applet
 #exec --no-startup-id xfce4-clipman

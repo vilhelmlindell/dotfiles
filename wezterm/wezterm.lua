@@ -15,7 +15,7 @@ end
 -- For example, changing the color scheme:
 config.color_scheme = "Catppuccin Mocha"
 config.enable_tab_bar = false
-config.font_size = 20
+config.font_size = 16
 
 -- and finally, return the configuration to wezterm
 return config
