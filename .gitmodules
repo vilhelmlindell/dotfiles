@@ -1,6 +1,0 @@
-[submodule "NvChad"]
-	path = NvChad
-	url = git@github.com:NvChad/NvChad.git
-[submodule "nvchad-config"]
-	path = nvchad-config
-	url = git@github.com:vilhelmlindell/nvchad-config.git

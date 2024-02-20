@@ -19,9 +19,13 @@ yay -S which --noconfirm
 chsh -s $(which fish)
 curl -sS https://starship.rs/install.sh | sh
 
+yay -S zoxide --noconfirm
+yay -S fzf --noconfirm
+
 yay -S picom --noconfirm
 
 yay -S wezterm --noconfirm
+yay -S fd --noconfirm
 
 yay -S tmux --noconfirm
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
