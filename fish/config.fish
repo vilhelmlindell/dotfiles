@@ -5,8 +5,10 @@ if status is-interactive
     #end
     if set -q ZELLIJ
     else
-      zellij
+        zellij
     end
     starship init fish | source
     zoxide init fish | source
+
+    set -g $EDITOR vim
 end

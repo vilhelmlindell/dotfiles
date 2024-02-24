@@ -311,8 +311,8 @@ set $ws10 "10"
 #workspace $ws5 output HDMI-0
 
 # bind program to workspace and focus to them on startup:
-assign [class="wezterm"] $ws1
-assign [class="(?i)firefox"] $ws2
+assign [class="(?i)firefox"] $ws1
+assign [class="wezterm"] $ws2
 #assign [class="Thunar"] $ws3
 #assign [class="thunderbird"] $ws4
 #assign [class="TelegramDesktop"] $ws5
@@ -427,7 +427,7 @@ exec --no-startup-id xset s 480 dpms 600 600 600
 # you need to have tray apps started manually one by one:
 
 # start blueberry app for managing bluetooth devices from tray:
-# exec --no-startup-id blueberry-tray
+exec --no-startup-id blueberry-tray
 
 # networkmanager-applet
 exec --no-startup-id nm-applet
