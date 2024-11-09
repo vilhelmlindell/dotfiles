@@ -55,8 +55,6 @@ neovide
 neovim
 networkmanager
 npm
-nvidia
-nvidia-prime
 okular
 olympus
 openbsd-netcat
