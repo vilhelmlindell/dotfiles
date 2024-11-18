@@ -43,7 +43,7 @@
 (setq org-directory "~/org/")
 
 ;;(key-chord-define evil-insert-state-map "kj" 'evil-normal-state)
-(setq evil-escape-key-sequence "kj")
+;;(setq evil-escape-key-sequence "kj")
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -77,15 +77,47 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;;(after! corfu
-;;  (corfu-popupinfo-mode 1)
-;;  ;; Optional customizations
-;;  (setq corfu-popupinfo-delay '(0.25 . 0.1)) ; Initial & subsequent delay
-;;  (setq corfu-popupinfo-hide nil))           ; Don't hide popup automatically
+(after! corfu
+  (corfu-popupinfo-mode 0)
+  ;; Optional customizations
+  (setq corfu-popupinfo-delay '(0 . 0)) ; Initial & subsequent delay
+  (setq corfu-popupinfo-hide nil))           ; Don't hide popup automatically
 
-(add-hook 'tree-sitter-mode-hook #'tree-sitter-hl-mode)
+(use-package! treesit-auto
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (add-to-list 'treesit-auto-recipe-list
+               (make-treesit-auto-recipe
+                :lang 'zig
+                :ts-mode 'zig-ts-mode
+                :remap 'zig-mode
+                :url "https://github.com/maxxnino/tree-sitter-zig"
+                :ext "\\.zig\\'"))
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
 
-(setq font-lock-maximum-decoration t)
+;; Ensure zig-ts-mode is properly loaded for .zig files
+(add-to-list 'auto-mode-alist '("\\.zig\\'" . zig-ts-mode))
+
+;; Enable LSP for zig-ts-mode
+(after! lsp-mode
+  (add-to-list 'lsp-language-id-configuration '(zig-ts-mode . "zig")))
+
+;; Add lsp hook for zig-ts-mode
+(use-package! zig-ts-mode
+  :hook (zig-ts-mode . lsp!)
+  :config)
+
+(after! zig-mode
+  (after! zig-ts-mode
+    (setq zig-ts-mode-hook zig-mode-local-vars-hook)))
+
+;; Other settings
+(setq font-lock-maximum-decoration t
+      treesit-font-lock-level 4
+      which-key-idle-delay 0.2
+      which-key-idle-secondary-delay 0.05)
 
 ;;  :config
 ;;(after! prism

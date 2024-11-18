@@ -11,8 +11,12 @@
 
 (package! key-chord)
 (package! catppuccin-theme)
+(package! treesit-auto)
 (package! prism
   :recipe (:host github :repo "alphapapa/prism.el"))
+
+(package! zig-ts-mode
+  :recipe (:host codeberg :repo "meow_king/zig-ts-mode"))
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
