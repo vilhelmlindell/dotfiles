@@ -1,37 +1,29 @@
 add_newline = false
 # A minimal left prompt
-format = """$directory$character"""
+#format = """$directory$character"""
+format = "[\\[](red)$username[@](green)$hostname $directory[\\]](red)$os "
 palette = "catppuccin_mocha"
 # move the rest of the prompt to the right
 right_format = """$all"""
 command_timeout = 1000
 
-[directory.substitutions]
-'~/tests/starship-custom' = 'work-project'
+[username]
+show_always = true
+style_user = "yellow"
+style_root = "yellow"
+format = "[$user]($style)"
+
+[directory]
+style = 'mauve'
+
+[hostname]
+ssh_only = false
+style = 'blue'
+format = "[$hostname]($style)"
+disabled = false
 
 [git_branch]
 format =  '[$symbol$branch(:$remote_branch)]($style)'
-
-[aws]
-format = '[$symbol(profile: "$profile" )(\(region: $region\) )]($style)'
-disabled = false
-style = 'bold blue'
-symbol = " "
-
-[golang]
-format = '[ ](bold cyan)'
-
-[kubernetes]
-symbol = '☸ '
-disabled = true
-detect_files = ['Dockerfile']
-format = '[$symbol$context( \($namespace\))]($style) '
-contexts = [
-  { context_pattern = "arn:aws:eks:us-west-2:577926974532:cluster/zd-pvc-omer", style = "green", context_alias = "omerxx", symbol = " " },
-]
-
-[docker_context]
-disabled = true
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"
