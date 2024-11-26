@@ -36,6 +36,8 @@ exec --no-startup-id nm-applet
 
 exec_always --no-startup-id picom --config  ~/.config/picom/picom.conf --experimental-backends
 exec_always --no-startup-id kanata -c ~/.config/kanata/config.kbd
+exec_always --no-startup-id vibrant-cli
+
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status

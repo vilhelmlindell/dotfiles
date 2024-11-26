@@ -100,6 +100,9 @@
 ;; Ensure zig-ts-mode is properly loaded for .zig files
 (add-to-list 'auto-mode-alist '("\\.zig\\'" . zig-ts-mode))
 
+(after! rust-mode
+  (setq rust-ts-mode-hook rustic-mode-hook))
+
 ;; Enable LSP for zig-ts-mode
 (after! lsp-mode
   (add-to-list 'lsp-language-id-configuration '(zig-ts-mode . "zig")))
