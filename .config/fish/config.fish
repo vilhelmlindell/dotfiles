@@ -11,6 +11,8 @@ function fish_user_key_bindings
     bind --mode insert --sets-mode default kj repaint
 end
 
+set fish_greeting
+
 if status is-login
     if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
         exec startx -- -keeptty
@@ -30,3 +32,4 @@ if status is-interactive
 
     eval (zellij setup --generate-auto-start fish | string collect)
 end
+
