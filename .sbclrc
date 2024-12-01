@@ -1,0 +1,17 @@
+;;; The following lines added by ql:add-to-init-file:
+#-quicklisp
+(let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
+                                       (user-homedir-pathname))))
+  (when (probe-file quicklisp-init)
+    (load quicklisp-init)))
+
+(ql:quickload "hyperspec")
+
+(defun clhs-open-zellij (sym)
+  (let ((html-path (hyperspec:lookup sym)))  ; Get the HTML path for the symbol
+    ;;(format t "Opening: ~A~%" html-path)      ; Debugging output
+    (uiop:run-program 
+     (list "zellij" "run" "--" "w3m" html-path)  ; Use a list for the command and arguments
+     ;;:output t 
+     ;;:error-output t
+     )))
