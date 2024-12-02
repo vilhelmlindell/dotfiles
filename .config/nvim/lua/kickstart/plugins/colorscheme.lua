@@ -1,11 +1,14 @@
 return {
   {
+    "ellisonleao/gruvbox.nvim"
+  },
+  {
     'catppuccin/nvim',
     init = function()
       require('catppuccin').setup {
         no_italic = true,
       }
-      vim.cmd.colorscheme 'catppuccin'
+      vim.cmd.colorscheme 'retrobox'
     end,
   },
 }
