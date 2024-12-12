@@ -30,6 +30,6 @@ if status is-interactive
     #     end
     # end
 
-    # eval (zellij setup --generate-auto-start fish | string collect)
+    eval (zellij setup --generate-auto-start fish | string collect)
 end
 

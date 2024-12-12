@@ -36,7 +36,8 @@ exec --no-startup-id nm-applet
 
 exec_always --no-startup-id picom --config  ~/.config/picom/picom.conf --experimental-backends
 exec_always --no-startup-id kanata -c ~/.config/kanata/config.kbd
-exec_always --no-startup-id vibrant-cli
+exec_always --no-startup-id vibrant-cli eDP-1 2.0
+exec_always --no-startup-id setxkbmap -layout us,se -option grp:alt_shift_toggle
 
 
 # Use pactl to adjust volume in PulseAudio.
