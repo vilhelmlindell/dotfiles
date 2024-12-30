@@ -294,13 +294,25 @@ themes {
         white "#fbf1c7"
         orange "#fe8019"
     }
-
+    no-clown-fiesta {
+        fg "#E1E1E1"
+        bg "#373737"
+        black "#151515"
+        red "#b46958"
+        green "#90A959"
+        yellow "#F4BF75"
+        blue "#BAD7FF"
+        magenta "#AA759F"
+        cyan "#88afa2"
+        white "#E1E1E1"
+        orange "#FFA557"
+    }
 }
 
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-theme "retrobox"
+theme "no-clown-fiesta"
 
 // The name of the default layout to load on startup
 // Default: "default"

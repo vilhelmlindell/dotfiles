@@ -1,0 +1,13 @@
+shell-integration = fish
+clipboard-read = allow
+clipboard-write = allow
+window-theme = dark
+theme = no-clown-fiesta
+gtk-titlebar = false
+font-family = IosevkaTermNerdFontMono
+font-size = 21
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+confirm-close-surface = false
+quit-after-last-window-closed = true

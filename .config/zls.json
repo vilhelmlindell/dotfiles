@@ -1,0 +1,5 @@
+{
+  "zig_exe_path": "/home/vilhelm/.local/bin/zig",
+  "semantic_tokens": "partial",
+  "enable_build_on_save": true
+}
