@@ -33,10 +33,10 @@ return {
       --
       -- But for many setups, the LSP (`ts_ls`) will work just fine
       -- ts_ls = {},
-    }
+    },
   },
   config = function(_, opts)
-    local lspconfig = require('lspconfig')
+    local lspconfig = require 'lspconfig'
 
     vim.api.nvim_create_autocmd('LspAttach', {
       callback = function(event)
@@ -52,11 +52,14 @@ return {
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, key_opts)
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, key_opts)
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, key_opts)
-        vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, key_opts)
+        vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, { desc = 'Rename' })
+        vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, { desc = 'Code Action' })
+        vim.keymap.set('n', '<leader>ls', vim.lsp.buf.signature_help, { desc = 'Signature Help' })
+        vim.keymap.set('n', '<leader>ld', vim.lsp.buf.type_definition, { desc = 'Type Definition' })
 
         -- Example: Print a message to confirm LSP is attached
-        print("LSP attached to buffer " .. buffer)
-      end
+        print('LSP attached to buffer ' .. buffer)
+      end,
     })
 
     for server, config in pairs(opts.servers) do
@@ -66,7 +69,7 @@ return {
       lspconfig[server].setup(config)
     end
 
-    lspconfig["zls"].setup(require('blink.cmp').get_lsp_capabilities({}))
+    lspconfig['zls'].setup(require('blink.cmp').get_lsp_capabilities {})
 
     require('mason').setup()
 
@@ -75,12 +78,12 @@ return {
     local ensure_installed = vim.tbl_keys(opts.servers or {})
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format Lua code
-      'clang-format'
+      'clang-format',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
     require('mason-lspconfig').setup()
-  end
+  end,
 
   -- example calling setup directly for each LSP
   --config = function()

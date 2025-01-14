@@ -25,13 +25,13 @@ return {
       vim.keymap.set('n', ',h', VlimeHyperspecLookup, { desc = 'Open word in hyperspec' })
 
       -- Set up nvim-cmp for autocompletion with Nvlime
-      local cmp = require 'cmp'
-      cmp.setup.filetype('lisp', {
-        sources = {
-          { name = 'nvlime' },
-          -- Add more sources as needed
-        },
-      })
+      --local cmp = require 'cmp'
+      --cmp.setup.filetype('lisp', {
+      --  sources = {
+      --    { name = 'nvlime' },
+      --    -- Add more sources as needed
+      --  },
+      --})
     end,
   },
   --{
