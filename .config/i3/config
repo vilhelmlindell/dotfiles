@@ -37,7 +37,7 @@ exec --no-startup-id nm-applet
 exec_always --no-startup-id picom --config  ~/.config/picom/picom.conf --experimental-backends
 exec_always --no-startup-id kanata -c ~/.config/kanata/config.kbd
 exec_always --no-startup-id vibrant-cli eDP-1 2.0
-exec_always --no-startup-id setxkbmap -layout us,se -option grp:alt_shift_toggle
+exec_always --no-startup-id setxkbmap -layout "us,se" -option "grp:alt_shift_toggle"
 
 
 # Use pactl to adjust volume in PulseAudio.
@@ -47,8 +47,8 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +10%
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +1%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 1%-
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod

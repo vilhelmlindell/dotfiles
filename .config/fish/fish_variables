@@ -2,6 +2,7 @@
 # VERSION: 3.0
 SETUVAR --export AOC_SESSION_TOKEN:53616c7465645f5f265372cf6fa5642b525870f0aaaa694ee0b79c0123cd1367d5a165e681e1391e5ad9124a88c945a90e4863a88f960bddc8e104fcfc35ea3c
 SETUVAR --export EDITOR:nvim
+SETUVAR --export PAGER:less
 SETUVAR --export SHELL:fish
 SETUVAR --export TERMINAL:wezterm
 SETUVAR --export VCPKG_ROOT:/home/vilhelm/\x2elocal/share/vcpkg
