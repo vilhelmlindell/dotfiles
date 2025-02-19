@@ -1,14 +1,14 @@
 local wezterm = require("wezterm")
 local config = {}
---local retrobox, metadata = wezterm.color.load_base16_scheme("/home/vilhelm/dotfiles/.config/wezterm/retrobox.yaml")
+local no_clown_fiesta, metadata = wezterm.color.load_base16_scheme("/home/vilhelm/dotfiles/.config/wezterm/no-clown-fiesta.yaml")
 
-config.font = wezterm.font("JetBrainsMonoNerdFont")
-config.font_size = 22.0
-config.color_scheme = "Gruvbox Material (Gogh)"
+config.font = wezterm.font("IosevkaTermNerdFont")
+config.font_size = 28.0
+config.color_scheme = "(Gogh)"
 --config.color_scheme = "ayu"
 --config.color_scheme = "Gruber (base16)"
 --config.color_scheme = "Oxocarbon Dark (Gogh)"
---config.colors = retrobox
+config.colors = no_clown_fiesta 
 config.enable_tab_bar = false
 config.window_close_confirmation = 'NeverPrompt'
 

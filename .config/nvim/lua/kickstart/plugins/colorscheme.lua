@@ -1,6 +1,6 @@
 return {
   {
-    'aktersnurra/no-clown-fiesta.nvim',
+    'vilhelmlindell/no-clown-fiesta.nvim',
     config = function()
       require('no-clown-fiesta').setup {
         transparent = false, -- Enable this to disable the bg color
