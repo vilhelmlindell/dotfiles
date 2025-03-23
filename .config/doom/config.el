@@ -84,10 +84,11 @@
       which-key-idle-delay 0.2
       which-key-idle-secondary-delay 0.05
 
-      doom-font (font-spec :family "IosevkaTerm Nerd Font" :size 26)
-      doom-variable-pitch-font (font-spec :family "IosevkaTerm Nerd Font" :size 24))
+      doom-font (font-spec :family "IosevkaTerm Nerd Font" :size 30)
+      doom-variable-pitch-font (font-spec :family "IosevkaTerm Nerd Font" :size 30)
+      )
 
-(use-package no-clown-fiesta-theme
+(use-package! no-clown-fiesta-theme
       :ensure t
       :config
       (load-theme 'no-clown-fiesta t))
@@ -95,40 +96,14 @@
 (after! evil-escape
   (setq evil-escape-key-sequence "kj"))
 
-;; Then define your custom bindings
-;;(map! :g "C--" #'doom/decrease-font-size
-;;      :g "C-=" #'doom/increase-font-size)
-
 (map! :nvime "C--" #'doom/decrease-font-size
       :nvime "C-=" #'doom/increase-font-size)
 
-(use-package doom-modeline
-      :init (doom-modeline-mode 1)
-      :custom ((doom-modeline-height 25)))
+(use-package! treesit-auto :custom (treesit-auto-install 'prompt) :config (treesit-auto-add-to-auto-mode-alist 'all) (global-treesit-auto-mode))
 
-(require 'treesit)
+(add-hook 'rust-ts-mode-hook 'lsp)
+(add-hook 'python-ts-mode-hook 'lsp)
+(add-hook 'zig-ts-mode-hook 'lsp)
+(add-hook 'c-ts-mode-hook 'lsp)
 
-(add-to-list 'treesit-language-source-alist
-             '(typst "https://github.com/uben0/tree-sitter-typst"))
-
-(defconst treesit-langs '(("c" . c) ("c++" . cpp) ("typst" . typst) ("python" . python)))
-
-;;(defun treesit-populate-mode-mapping ()
-;;  "Populate `major-mode-remap-alist' according to `treesit-langs'."
-;;  (interactive)
-;;  (when (and (fboundp #'treesit-available-p) (treesit-available-p))
-;;    (dolist (lang treesit-langs)
-;;      (when-let (((treesit-ready-p (cdr lang) t))
-;;                 (mode (intern (concat (car lang) "-mode")))
-;;                 (ts-mode (intern (concat (car lang) "-ts-mode"))))
-;;        (add-to-list 'major-mode-remap-alist (cons mode ts-mode))))))
-;;
-;;(defun treesit-install-language-grammars ()
-;;  "Install tree-sitter grammars for languages in `treesit-langs'."
-;;  (interactive)
-;;  (dolist (lang treesit-langs)1
-;;    (unless (treesit-ready-p (cdr lang) t)
-;;      (treesit-install-language-grammar (cdr lang) 'interactive)))
-;;  (treesit-populate-mode-mapping))
-;;
-;;(treesit-populate-mode-mapping)
+(setq inferior-lisp-program "sbcl")
