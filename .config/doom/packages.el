@@ -3,26 +3,15 @@
 
 ;; To install a package with Doom you must declare them here and run 'doom sync'
 ;; on the command line, then restart Emacs for the changes to take effect -- or
-;; use 'M-x doom/reload'.
-
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;; (package! some-package)
 
-(package! key-chord)
-(package! catppuccin-theme)
-(package! treesit-auto)
-(package! prism
-  :recipe (:host github :repo "alphapapa/prism.el"))
-
-(package! zig-ts-mode
-  :recipe (:host codeberg :repo "meow_king/zig-ts-mode"))
-
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
 ;; https://github.com/radian-software/straight.el#the-recipe-format
-;; (package! another-package
-;;   :recipe (:host github :repo "username/repo"))
+(package! no-clown-fiesta-theme
+  :recipe (:host github :repo "emacsattic/no-clown-fiesta-theme"))
 
 ;; If the package you are trying to install does not contain a PACKAGENAME.el
 ;; file, or is located in a subdirectory of the repo, you'll need to specify

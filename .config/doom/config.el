@@ -21,8 +21,8 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "IosevkaTerm Nerd Font" :size 26 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "IosevkaTerm Nerd Font" :size 24))
+;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
+;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -32,8 +32,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-;; (setq doom-theme 'catppuccin)
-(load-theme 'gruber-darker-theme)
+;; (setq doom-theme 'doom-one)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -43,8 +42,6 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
 
-;;(key-chord-define evil-insert-state-map "kj" 'evil-normal-state)
-;;(setq evil-escape-key-sequence "kj")
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -78,67 +75,60 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;;(after! corfu
-;;  (corfu-popupinfo-mode 0)
-;;  ;; Optional customizations
-;;  (setq corfu-popupinfo-delay '(0 . 0)) ; Initial & subsequent delay
-;;  (setq corfu-popupinfo-hide nil))           ; Don't hide popup automatically
-
-(use-package! treesit-auto
-  :custom
-  (treesit-auto-install 'prompt)
-  :config
-  (add-to-list 'treesit-auto-recipe-list
-               (make-treesit-auto-recipe
-                :lang 'zig
-                :ts-mode 'zig-ts-mode
-                :remap 'zig-mode
-                :url "https://github.com/maxxnino/tree-sitter-zig"
-                :ext "\\.zig\\'"))
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode))
-
-;; Ensure zig-ts-mode is properly loaded for .zig files
-(add-to-list 'auto-mode-alist '("\\.zig\\'" . zig-ts-mode))
-
-(after! rust-mode
-  (setq rust-ts-mode-hook rustic-mode-hook))
-
-;; Enable LSP for zig-ts-mode
-(after! lsp-mode
-  (add-to-list 'lsp-language-id-configuration '(zig-ts-mode . "zig")))
-
-;; Add lsp hook for zig-ts-mode
-(use-package! zig-ts-mode
-  :hook (zig-ts-mode . lsp!)
-  :config)
-
-(after! zig-mode
-  (after! zig-ts-mode
-    (setq zig-ts-mode-hook zig-mode-local-vars-hook)))
-
-;; Other settings
 (setq font-lock-maximum-decoration t
-      treesit-font-lock-level 4
-      which-key-idle-delay 0.2
-      which-key-idle-secondary-delay 0.05)
+      ;;corfu-auto-delay 0.05
+      corfu-popupinfo-delay '(0.05 . 0.1)
 
-;;  :config
-;;(after! prism
-;;  (prism-set-colors :lightens '(0 5 10) :desaturations '(-2.5 0 2.5)
-;;                   :colors (-map #'doom-color '(red orange yellow green blue violet))))
-;;  (prism-set-colors :num 16
-;;                    :desaturations (cl-loop for i from 0 below 16
-;;                                            collect (* i 2.5))
-;;                    :lightens (cl-loop for i from 0 below 16
-;;                                       collect (* i 2.5))
-;;                    :colors (list "dodgerblue" "medium sea green" "sandy brown")
+      treesit-font-lock-level 4
+
+      which-key-idle-delay 0.2
+      which-key-idle-secondary-delay 0.05
+
+      doom-font (font-spec :family "IosevkaTerm Nerd Font" :size 26)
+      doom-variable-pitch-font (font-spec :family "IosevkaTerm Nerd Font" :size 24))
+
+(use-package no-clown-fiesta-theme
+      :ensure t
+      :config
+      (load-theme 'no-clown-fiesta t))
+
+(after! evil-escape
+  (setq evil-escape-key-sequence "kj"))
+
+;; Then define your custom bindings
+;;(map! :g "C--" #'doom/decrease-font-size
+;;      :g "C-=" #'doom/increase-font-size)
+
+(map! :nvime "C--" #'doom/decrease-font-size
+      :nvime "C-=" #'doom/increase-font-size)
+
+(use-package doom-modeline
+      :init (doom-modeline-mode 1)
+      :custom ((doom-modeline-height 25)))
+
+(require 'treesit)
+
+(add-to-list 'treesit-language-source-alist
+             '(typst "https://github.com/uben0/tree-sitter-typst"))
+
+(defconst treesit-langs '(("c" . c) ("c++" . cpp) ("typst" . typst) ("python" . python)))
+
+;;(defun treesit-populate-mode-mapping ()
+;;  "Populate `major-mode-remap-alist' according to `treesit-langs'."
+;;  (interactive)
+;;  (when (and (fboundp #'treesit-available-p) (treesit-available-p))
+;;    (dolist (lang treesit-langs)
+;;      (when-let (((treesit-ready-p (cdr lang) t))
+;;                 (mode (intern (concat (car lang) "-mode")))
+;;                 (ts-mode (intern (concat (car lang) "-ts-mode"))))
+;;        (add-to-list 'major-mode-remap-alist (cons mode ts-mode))))))
 ;;
-;;                    :comments-fn
-;;                    (lambda (color)
-;;                      (prism-blend color
-;;                                   (face-attribute 'font-lock-comment-face :foreground) 0.25))
+;;(defun treesit-install-language-grammars ()
+;;  "Install tree-sitter grammars for languages in `treesit-langs'."
+;;  (interactive)
+;;  (dolist (lang treesit-langs)1
+;;    (unless (treesit-ready-p (cdr lang) t)
+;;      (treesit-install-language-grammar (cdr lang) 'interactive)))
+;;  (treesit-populate-mode-mapping))
 ;;
-;;                    :strings-fn
-;;                    (lambda (color)
-;;                      (prism-blend color "white" 0.5))))
+;;(treesit-populate-mode-mapping)
