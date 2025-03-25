@@ -1,4 +1,8 @@
 return {
+  --'rafi/awesome-vim-colorschemes',
+  --config = function()
+  --  vim.cmd 'colorscheme mountaineer'
+  --end
   {
     'vilhelmlindell/no-clown-fiesta.nvim',
     config = function()

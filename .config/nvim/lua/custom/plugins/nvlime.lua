@@ -25,13 +25,13 @@ return {
       vim.keymap.set('n', ',h', VlimeHyperspecLookup, { desc = 'Open word in hyperspec' })
 
       -- Set up nvim-cmp for autocompletion with Nvlime
-      --local cmp = require 'cmp'
-      --cmp.setup.filetype('lisp', {
-      --  sources = {
-      --    { name = 'nvlime' },
-      --    -- Add more sources as needed
-      --  },
-      --})
+      local cmp = require 'cmp'
+      cmp.setup.filetype('lisp', {
+        sources = {
+          { name = 'nvlime' },
+          -- Add more sources as needed
+        },
+      })
     end,
   },
   --{
@@ -47,8 +47,8 @@ return {
   --    vim.g.slimv_swank_cmd = '!zellij run -- sbcl --load ~/.local/share/nvim/lazy/slimv/slime/start-swank.lisp'
   --    vim.g.slimv_browser_cmd_ex = '!firefox'
   --    vim.g.slimv_repl_split = 4
-  --    vim.g.slimv_leader = '.'
-  --    echo expand("<cword>")
+  --    vim.g.slimv_leader = ','
+  --    --echo expand("<cword>")
 
   --    --vim.keymap.set('n', '<leader>f', builtin.help_tags, { desc = '[S]earch [H]elp' })
   --  end,
