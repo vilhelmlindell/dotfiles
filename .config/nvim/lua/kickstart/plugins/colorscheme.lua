@@ -3,6 +3,7 @@ return {
   --config = function()
   --  vim.cmd 'colorscheme mountaineer'
   --end
+  -- Lua
   {
     'vilhelmlindell/no-clown-fiesta.nvim',
     config = function()
@@ -19,7 +20,7 @@ return {
           variables = {},
         },
       }
-      vim.cmd 'colorscheme no-clown-fiesta'
+      vim.cmd.colorscheme 'no-clown-fiesta'
     end,
   },
 }

@@ -426,6 +426,10 @@ return {
             })
           end
 
+          if client then
+            client.server_capabilities.semanticTokensProvider = nil
+          end
+
           -- The following code creates a keymap to toggle inlay hints in your
           -- code, if the language server you are using supports them
           --

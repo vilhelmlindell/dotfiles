@@ -5,7 +5,7 @@ end
 
 return {
   {
-    'monkoose/nvlime',
+    'vilhelmlindell/nvlime',
     dependencies = {
       'monkoose/parsley',
       --'kovisoft/paredit'
@@ -21,6 +21,9 @@ return {
         floating_window = {
           scroll_step = 3, -- Configure scroll step for floating windows
         },
+        autodoc = {
+          enabled = true,
+        },
       }
       vim.keymap.set('n', ',h', VlimeHyperspecLookup, { desc = 'Open word in hyperspec' })
 
@@ -34,6 +37,36 @@ return {
       })
     end,
   },
+  --{
+  --  'monkoose/nvlime',
+  --  dependencies = {
+  --    'monkoose/parsley',
+  --    --'kovisoft/paredit'
+  --    --'gpanders/nvim-parinfer',
+  --  },
+  --  config = function()
+  --    -- Use vim.g.nvlime_config instead of nvlime_nvlime
+  --    vim.g.nvlime_config = {
+  --      leader = ',', -- Set the leader key for Nvlime
+  --      cmp = {
+  --        enabled = true, -- Enable nvim-cmp for autocompletion
+  --      },
+  --      floating_window = {
+  --        scroll_step = 3, -- Configure scroll step for floating windows
+  --      },
+  --    }
+  --    vim.keymap.set('n', ',h', VlimeHyperspecLookup, { desc = 'Open word in hyperspec' })
+
+  --    -- Set up nvim-cmp for autocompletion with Nvlime
+  --    local cmp = require 'cmp'
+  --    cmp.setup.filetype('lisp', {
+  --      sources = {
+  --        { name = 'nvlime' },
+  --        -- Add more sources as needed
+  --      },
+  --    })
+  --  end,
+  --},
   --{
   --  'kovisoft/slimv',
 

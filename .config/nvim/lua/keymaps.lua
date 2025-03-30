@@ -3,7 +3,7 @@
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
-vim.keymap.set('n', '<Esc>', '<cmd>nohl<CR>')
+vim.keymap.set('n', '<Esc>', '<cmd>noh<CR>')
 
 -- Enter normal mode
 vim.keymap.set('i', 'kj', '<Esc>', { desc = 'Enter normal mode' })
