@@ -1,4 +1,3 @@
 return {
-  'hiphish/rainbow-delimiters.nvim',
-  enable = false,
+  --'hiphish/rainbow-delimiters.nvim',
 }
