@@ -5,6 +5,7 @@ end
 
 return {
   {
+	enabled = false,
     'vilhelmlindell/nvlime',
     dependencies = {
       'monkoose/parsley',

@@ -1,4 +1,4 @@
----- LSP Plugins
+-- LSP Plugins
 --return {
 --  {
 --    -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
@@ -28,7 +28,7 @@
 --
 --      -- Allows extra capabilities provided by nvim-cmp
 --      -- 'hrsh7th/cmp-nvim-lsp',
---e
+--      --
 --      {
 --        'SmiteshP/nvim-navbuddy',
 --        dependencies = {
@@ -380,6 +380,7 @@ return {
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
 
+          map('<leader>lr', vim.lsp.buf.rename, 'Rename', { 'n', 'x' })
           map('<leader>la', vim.lsp.buf.code_action, 'Code Action', { 'n', 'x' })
           map('<leader>ls', vim.lsp.buf.signature_help, 'Signature Help', { 'n', 'x' })
           map('<leader>ld', vim.lsp.buf.type_definition, 'Type Definition', { 'n', 'x' })
@@ -476,7 +477,9 @@ return {
       --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      --capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      --capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').default_capabilities())
+      capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities({}, false))
 
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -530,6 +533,14 @@ return {
       --
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
+
+      for server, config in pairs(servers) do
+        -- passing config.capabilities to blink.cmp merges with the capabilities in your
+        -- `opts[server].capabilities, if you've defined it
+        config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
+        require('lspconfig')[server].setup(config)
+      end
+
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
