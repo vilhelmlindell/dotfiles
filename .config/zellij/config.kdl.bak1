@@ -226,7 +226,7 @@ themes {
     no-clown-fiesta {
         text_unselected {
             base 225 225 225
-            background 0 0 0
+            background 21 21 21
             emphasis_0 255 165 87
             emphasis_1 136 175 162
             emphasis_2 144 169 89

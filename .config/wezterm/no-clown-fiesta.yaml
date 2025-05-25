@@ -1,7 +1,7 @@
 scheme: "No Clown Fiesta"
 author: "Vilhelm Lindell"
 
-base00: "151515"  # Default Background
+base00: "000000"  # Default Background
 base01: "171717"  # Lighter Background (Used for status bars, line number, etc.)
 base02: "202020"  # Selection Background
 base03: "373737"  # Comments, Invisibles, Line Highlighting
