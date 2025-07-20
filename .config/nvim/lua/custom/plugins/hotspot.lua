@@ -1,3 +1,0 @@
-return {
-  'rktjmp/hotpot.nvim'
-}

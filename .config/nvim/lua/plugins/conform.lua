@@ -35,6 +35,7 @@ return {
         lua = { 'stylua' },
         zig = { 'zigfmt' },
         c = { 'clang-format' },
+        ocaml = { 'ocamlformat' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --

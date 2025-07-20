@@ -5,6 +5,7 @@ SETUVAR --export EDITOR:nvim
 SETUVAR --export LIBVA_DRIVER_NAME:iHD
 SETUVAR --export LIBVA_DRM_DEVICE:/dev/dri/renderD128
 SETUVAR --export MOZ_LOG:FFmpegVideo\x3a5
+SETUVAR --export --path OCAMLPATH:/home/vilhelm/\x2eopam/default/lib
 SETUVAR --export PAGER:less
 SETUVAR --export SHELL:fish
 SETUVAR --export TERMINAL:wezterm
