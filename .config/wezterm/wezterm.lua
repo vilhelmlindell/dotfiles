@@ -3,7 +3,7 @@ local config = {}
 local no_clown_fiesta, metadata = wezterm.color.load_base16_scheme("/home/vilhelm/dotfiles/.config/wezterm/no-clown-fiesta.yaml")
 
 config.font = wezterm.font {
-  family = 'JetBrains Mono',
+  family = 'IosevkaTermNerdFont',
   harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
 }
 config.font_size = 20.0

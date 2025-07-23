@@ -36,6 +36,8 @@ return {
         zig = { 'zigfmt' },
         c = { 'clang-format' },
         ocaml = { 'ocamlformat' },
+        verilog = { 'verible' },
+        systemverilog = { 'verible' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
