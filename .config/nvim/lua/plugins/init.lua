@@ -7,6 +7,13 @@ return {
   'rktjmp/hotpot.nvim',
   'tpope/vim-fugitive',
   {
+    'declancm/maximize.nvim',
+    config = true,
+    init = function()
+      vim.keymap.set('n', '<C-W>z', vim.diagnostic.setloclist, { desc = 'Toggle window zoom' })
+    end
+  },
+  {
     'tummetott/unimpaired.nvim',
     event = 'VeryLazy',
     opts = {
@@ -35,7 +42,7 @@ return {
     'saecki/crates.nvim',
     tag = 'stable',
     config = function()
-      require('crates').setup({})
+      require('crates').setup {}
     end,
   },
   {
