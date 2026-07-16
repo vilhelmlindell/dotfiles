@@ -13,6 +13,7 @@ vim.pack.add({
   "https://github.com/saghen/blink.cmp",
   "https://github.com/nvim-mini/mini.nvim",
   "https://github.com/vilhelmlindell/no-clown-fiesta.nvim",
+  "https://github.com/NMAC427/guess-indent.nvim",
   --"https://github.com/no-clown-fiesta/no-clown-fiesta.nvim",
 }, { confirm = false })
 
@@ -58,6 +59,8 @@ vim.diagnostic.config({
 })
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+
+require('guess-indent').setup {}
 
 require('nvim-treesitter').install('all')
 
