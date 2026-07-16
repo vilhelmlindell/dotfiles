@@ -59,6 +59,8 @@ vim.diagnostic.config({
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
+require('nvim-treesitter').install('all')
+
 --vim.cmd('syntax off')
 
 require('no-clown-fiesta').setup {
