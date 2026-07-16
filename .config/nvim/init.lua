@@ -117,7 +117,6 @@ local lsp_servers = {
   },
   clangd = {},
   rust_analyzer = {},
-  gopls = {},
 }
 
 require("mason").setup()
