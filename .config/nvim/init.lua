@@ -151,7 +151,11 @@ require("which-key").setup({
   }
 })
 
-require("oil").setup()
+require("oil").setup({
+    view_options = {
+        show_hidden = true,
+    }
+})
 
 vim.keymap.set("n", "<leader>f", "<CMD>Pick files<CR>", { desc = "Pick files", })
 vim.keymap.set("n", "<leader>g", "<CMD>Pick grep_live<CR>", { desc = "Pick grep_live", })
