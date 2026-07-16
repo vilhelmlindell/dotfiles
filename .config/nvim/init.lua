@@ -1,109 +1,166 @@
---[[
+vim.pack.add({
+  "https://github.com/neovim/nvim-lspconfig",
+  "https://github.com/mason-org/mason.nvim",                     -- package manager
+  "https://github.com/mason-org/mason-lspconfig.nvim",           -- lspconfig bridge
+  "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim", -- auto installer
 
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-========                                    .-----.          ========
-========         .----------------------.   | === |          ========
-========         |.-""""""""""""""""""-.|   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||   KICKSTART.NVIM   ||   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||                    ||   |-----|          ========
-========         ||:Tutor              ||   |:::::|          ========
-========         |'-..................-'|   |____o|          ========
-========         `"")----------------(""`   ___________      ========
-========        /::::::::::|  |::::::::::\  \ no mouse \     ========
-========       /:::========|  |==hjkl==:::\  \ required \    ========
-========      '""""""""""""'  '""""""""""""'  '""""""""""'   ========
-========                                                     ========
-=====================================================================
-=====================================================================
+  "https://github.com/nvim-lua/plenary.nvim",        -- library dependency
+  "https://github.com/nvim-tree/nvim-web-devicons",  -- icons (nerd font)
 
-What is Kickstart?
+  "https://github.com/stevearc/oil.nvim",
+  "https://github.com/nvim-treesitter/nvim-treesitter",
+  "https://github.com/folke/which-key.nvim",
+  "https://github.com/saghen/blink.cmp",
+  "https://github.com/nvim-mini/mini.nvim",
+  "https://github.com/vilhelmlindell/no-clown-fiesta.nvim",
+  --"https://github.com/no-clown-fiesta/no-clown-fiesta.nvim",
+}, { confirm = false })
 
-  Kickstart.nvim is *not* a distribution.
+vim.cmd.packadd('cfilter')
+vim.cmd.packadd('nvim.undotree')
+vim.cmd.packadd('nvim.difftool')
 
-  Kickstart.nvim is a starting point for your own configuration.
-    The goal is that you can read every line of code, top-to-bottom, understand
-    what your configuration is doing, and modify it to suit your needs.
+-- vim.pack.update()
 
-    Once you've done that, you can start exploring, configuring and tinkering to
-    make Neovim your own! That might mean leaving Kickstart just the way it is for a while
-    or immediately breaking it into modular pieces. It's up to you!
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
-    If you don't know anything about Lua, I recommend taking some time to read through
-    a guide. One possible example which will only take 10-15 minutes:
-      - https://learnxinyminutes.com/docs/lua/
+vim.opt.termguicolors = true
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.mouse = "a"
+vim.opt.clipboard = "unnamedplus"
+vim.opt.undofile = true
+vim.opt.signcolumn = "yes"
+vim.opt.list = true
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣", }
+vim.opt.inccommand = "split"
+vim.opt.cursorline = true
+vim.opt.hlsearch = true
+vim.opt.breakindent = true
+vim.opt.wrap = true
 
-    After understanding a bit more about Lua, you can use `:help lua-guide` as a
-    reference for how Neovim integrates Lua.
-    - :help lua-guide
-    - (or HTML version): https://neovim.io/doc/user/lua-guide.html
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.textwidth = 80
 
-Kickstart Guide:
+vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.INFO] = " ",
+      [vim.diagnostic.severity.HINT] = " ",
+    },
+  },
+  virtual_text = true, -- show inline diagnostics
+})
 
-  TODO: The very first thing you should do is to run the command `:Tutor` in Neovim.
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
-    If you don't know what this means, type the following:
-      - <escape key>
-      - :
-      - Tutor
-      - <enter key>
+--vim.cmd('syntax off')
 
-    (If you already know the Neovim basics, you can skip this step.)
+require('no-clown-fiesta').setup {
+  transparent = true, -- Enable this to disable the bg color
+  styles = {
+    -- You can set any of the style values specified for `:h nvim_set_hl`
+    comments = {},
+    functions = {},
+    keywords = {},
+    lsp = {},
+    match_paren = {},
+    type = {}, -- Sets type color to green
+    variables = {},
+  },
+}
+vim.cmd.colorscheme("no-clown-fiesta")
 
-  Once you've completed that, you can continue working through **AND READING** the rest
-  of the kickstart init.lua.
+require('mini.icons').setup()
+require('mini.pick').setup()
 
-  Next, run AND READ `:help`.
-    This will open up a help window with some basic information
-    about reading, navigating and searching the builtin help documentation.
+require("blink.cmp").setup({
+  completion = {
+    documentation = {
+      auto_show = true,
+    },
+  },
 
-    This should be the first place you go to look when you're stuck or confused
-    with something. It's one of my favorite Neovim features.
+  -- default blink keymaps
+  keymap = {
+    ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
+    ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
 
-    MOST IMPORTANTLY, we provide a keymap "<space>sh" to [s]earch the [h]elp documentation,
-    which is very useful when you're not exactly sure of what you're looking for.
+    ['<C-y>'] = { 'select_and_accept', 'fallback' },
+    ['<C-e>'] = { 'cancel', 'fallback' },
+    ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
 
-  I have left several `:help X` comments throughout the init.lua
-    These are hints about where to find more information about the relevant settings,
-    plugins or Neovim features used in Kickstart.
+    ['<Tab>'] = { 'snippet_forward', 'fallback' },
+    ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
 
-   NOTE: Look for lines like this
+    ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+    ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
 
-    Throughout the file. These are for you, the reader, to help you understand what is happening.
-    Feel free to delete them once you know what you're doing, but they should serve as a guide
-    for when you are first encountering a few different constructs in your Neovim config.
+    ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
+  },
 
-If you experience any errors while trying to install kickstart, run `:checkhealth` for more info.
+  fuzzy = {
+    implementation = "lua",
+  },
+})
 
-I hope you enjoy your Neovim journey,
-- TJ
+-- INFO: lsp server installation and configuration
+local lsp_servers = {
+  lua_ls = {
+    -- https://luals.github.io/wiki/settings/ | `:h nvim_get_runtime_file`
+    Lua = { workspace = { library = vim.api.nvim_get_runtime_file("lua", true) }, },
+  },
+  clangd = {},
+  rust_analyzer = {},
+  gopls = {},
+}
 
-P.S. You can delete this when you're done too. It's your config now! :)
---]]
+require("mason").setup()
+require("mason-lspconfig").setup()
+require("mason-tool-installer").setup({
+  ensure_installed = vim.tbl_keys(lsp_servers),
+})
 
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+-- configure each lsp server on the table
+-- to check what clients are attached to the current buffer, use
+-- `:checkhealth vim.lsp`. to view default lsp keybindings, use `:h lsp-defaults`.
+for server, config in pairs(lsp_servers) do
+  vim.lsp.config(server, {
+    settings = config,
 
--- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+    -- only create the keymaps if the server attaches successfully
+    on_attach = function(client, bufnr)
+      client.server_capabilities.semanticTokensProvider = nil
 
--- [[ Setting options ]]
-require 'options'
+      vim.keymap.set("n", "grd", vim.lsp.buf.definition,
+        { buffer = bufnr, desc = "vim.lsp.buf.definition()", })
 
--- [[ Basic Keymaps ]]
-require 'keymaps'
+      vim.keymap.set("n", "grf", vim.lsp.buf.format,
+        { buffer = bufnr, desc = "vim.lsp.buf.format()", })
+    end,
+  })
+end
 
--- [[ Install `lazy.nvim` plugin manager ]]
-require 'lazy-bootstrap'
+require("which-key").setup({
+  spec = {
+    { "<leader>s", group = "Pick", icon = { icon = "", color = "green", }, },
+  }
+})
 
--- [[ Configure and install plugins ]]
-require 'lazy-plugins'
+require("oil").setup()
 
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+vim.keymap.set("n", "<leader>f", "<CMD>Pick files<CR>", { desc = "Pick files", })
+vim.keymap.set("n", "<leader>g", "<CMD>Pick grep_live<CR>", { desc = "Pick grep_live", })
+vim.keymap.set("n", "<leader><leader>", "<CMD>Pick buffers<CR>", { desc = "Pick buffers", })
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+vim.api.nvim_create_autocmd('FileType', {
+    callback = function() pcall(vim.treesitter.start) end,
+})
+
+require('vim._core.ui2').enable({})
