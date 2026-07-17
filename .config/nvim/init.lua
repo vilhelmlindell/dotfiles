@@ -1,5 +1,6 @@
 vim.pack.add({
   "https://github.com/neovim/nvim-lspconfig",
+
   "https://github.com/mason-org/mason.nvim",                     -- package manager
   "https://github.com/mason-org/mason-lspconfig.nvim",           -- lspconfig bridge
   "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim", -- auto installer
@@ -30,7 +31,6 @@ vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.mouse = "a"
-vim.opt.clipboard = "unnamedplus"
 vim.opt.undofile = true
 vim.opt.signcolumn = "yes"
 vim.opt.list = true
@@ -40,11 +40,40 @@ vim.opt.cursorline = true
 vim.opt.hlsearch = true
 vim.opt.breakindent = true
 vim.opt.wrap = true
+vim.opt.clipboard = "unnamedplus"
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.textwidth = 80
+
+--vim.g.clipboard = 'osc52'
+vim.api.nvim_create_autocmd("TextYankPost", {
+  callback = function()
+    vim.highlight.on_yank()
+    local copy_to_unnamedplus = require("vim.ui.clipboard.osc52").copy("+")
+    copy_to_unnamedplus(vim.v.event.regcontents)
+    local copy_to_unnamed = require("vim.ui.clipboard.osc52").copy("*")
+    copy_to_unnamed(vim.v.event.regcontents)
+  end,
+})
+--local has_osc52, osc52 = pcall(require, "vim.ui.clipboard.osc52")
+--if has_osc52 then
+--  vim.g.clipboard = {
+--    name = "OSC 52",
+--    copy = {
+--      ["+"] = osc52.copy("+"),
+--      ["*"] = osc52.copy("*"),
+--    },
+--    paste = {
+--      ["+"] = osc52.paste("+"),
+--      ["*"] = osc52.paste("*"),
+--    },
+--  }
+--  vim.opt.clipboard = "unnamedplus"
+--elseif vim.fn.has("clipboard") == 1 then
+--  vim.opt.clipboard = "unnamedplus"
+--end
 
 vim.diagnostic.config({
   signs = {
